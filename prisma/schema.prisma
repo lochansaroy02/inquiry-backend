@@ -7,6 +7,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//person related details 
+
+model Person {
+  id         String         @id @default(cuid())
+  name       String
+  age        Int
+  gender     String
+  isAcccused Boolean
+  dossierNo  String?
+  address    Address        @relation(fields: [addressId], references: [id])
+  // faceData   Unsupported("")
+  members    FamilyMember[]
+  Checking   Checking?      @relation(fields: [checkingId], references: [id])
+  checkingId String?
+  addressId  String
+}
+
+model Address {
+  id       String   @id @default(cuid())
+  village  String?
+  town     String?
+  district String
+  state    String
+  pin      Int
+  personId String
+  Person   Person[]
+}
+
 model FamilyMember {
   id         String  @id @default(cuid())
   relation   String  @unique
@@ -17,19 +45,7 @@ model FamilyMember {
   personId   String?
 }
 
-model Person {
-  id         String         @id @default(cuid())
-  name       String
-  age        String
-  gender     String
-  isAcccused Boolean
-  dossierNo  String?
-  // faceData   Unsupported("")
-  members    FamilyMember[]
-  Checking   Checking?      @relation(fields: [checkingId], references: [id])
-  checkingId String?
-}
-
+// cheacking and polcie officer related details
 model Checking {
   id                  String   @id @default(cuid())
   checkingOfficerName String

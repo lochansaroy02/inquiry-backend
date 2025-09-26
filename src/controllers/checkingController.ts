@@ -14,7 +14,7 @@ export const createChecking = async (req: Request<{}, {}, any>, res: Response) =
             checkingOfficerName,
             policeStation,
             captured
-        } = req.body;
+        } = data
 
         if (!checkingOfficerName || !policeStation) {
             return res.status(400).json(

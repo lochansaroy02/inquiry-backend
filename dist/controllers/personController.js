@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import prisma from '../utils/prisma.js';
 export const createPerson = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, age, gender, isAcccused, dossierNo, checkingId } = req.body;
+        // change address id  body to paramas
+        const { name, age, gender, isAcccused, dossierNo, checkingId, addressId } = req.body;
         if (!name || !age || !gender) {
             return res.status(400).json({ success: false, error: "Name, email, and password are required" });
         }
@@ -26,7 +27,8 @@ export const createPerson = (req, res) => __awaiter(void 0, void 0, void 0, func
                 gender,
                 isAcccused,
                 dossierNo,
-                checkingId
+                checkingId,
+                addressId
             },
         });
         return res.status(201).json({ success: true, data: newUser });

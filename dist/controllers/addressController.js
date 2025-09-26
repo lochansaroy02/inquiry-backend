@@ -11,15 +11,17 @@ import prisma from '../utils/prisma.js';
 export const createChecking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     try {
-        const { checkingOfficerName, policeStation, captured } = data;
+        const { village, town, district, state, pin } = data;
         if (!checkingOfficerName || !policeStation) {
             return res.status(400).json({ success: false, error: "Name, email, and password are required" });
         }
         const newUser = yield prisma.checking.create({
             data: {
-                checkingOfficerName,
-                policeStation,
-                captured
+                village,
+                town,
+                district,
+                state,
+                pin
             },
         });
         return res.status(201).json({ success: true, data: newUser });
@@ -41,4 +43,4 @@ export const getChecking = (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(500).json({ message: 'internal server error', error: error });
     }
 });
-//# sourceMappingURL=checkingController.js.map
+//# sourceMappingURL=addressController.js.map

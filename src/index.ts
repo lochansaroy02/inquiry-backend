@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import addressRoutes from './routes/addressRoutes.js';
 import checkingRoutes from './routes/checkingRoutes.js';
 import memberRoutes from './routes/memberRoutes.js';
 import personRoutes from './routes/personRoutes.js';
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use("/checking", checkingRoutes);
 app.use("/person", personRoutes);
 app.use("/member", memberRoutes);
+app.use("/address", addressRoutes);
 
 app.get("/", async (req: Request, res: Response) => {
     res.json({

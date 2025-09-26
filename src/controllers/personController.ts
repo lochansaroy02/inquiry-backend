@@ -2,14 +2,24 @@ import { Request, Response } from "express";
 import prisma from '../utils/prisma.js';
 
 
+interface PersonProps {
+    name: string,
+    age: number,
+    gender: string,
+    isAcccused: boolean,
+    dossierNo: string,
+    checkingId: string
+    addressId: string
+}
 
 
-
-export const createPerson = async (req: Request<{}, {}, any>, res: Response) => {
+export const createPerson = async (req: Request<{}, {}, PersonProps>, res: Response) => {
 
 
 
     try {
+
+        // change address id  body to paramas
 
         const {
             name,
@@ -17,7 +27,8 @@ export const createPerson = async (req: Request<{}, {}, any>, res: Response) => 
             gender,
             isAcccused,
             dossierNo,
-            checkingId
+            checkingId,
+            addressId
         } = req.body;
 
         if (!name || !age || !gender) {
@@ -43,7 +54,9 @@ export const createPerson = async (req: Request<{}, {}, any>, res: Response) => 
                 gender,
                 isAcccused,
                 dossierNo,
-                checkingId
+                checkingId,
+                addressId
+
             },
         });
         return res.status(201).json({ success: true, data: newUser });

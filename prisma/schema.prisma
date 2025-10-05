@@ -7,48 +7,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//person related details 
+// Enums for data consistency
+enum Gender {
+  male
+  female
+}
 
 model Person {
-  id         String         @id @default(cuid())
+  id         String  @id @default(cuid())
   name       String
   age        Int
-  gender     String
+  gender     Gender
   isAcccused Boolean
   dossierNo  String?
-  address    Address        @relation(fields: [addressId], references: [id])
-  // faceData   Unsupported("")
+  statement  String?
+
   members    FamilyMember[]
   Checking   Checking?      @relation(fields: [checkingId], references: [id])
   checkingId String?
-  addressId  String
+  Address    Address?       @relation(fields: [addressId], references: [id])
+  addressId  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Address {
-  id       String   @id @default(cuid())
+  id       String  @id @default(cuid())
   village  String?
   town     String?
   district String
   state    String
   pin      Int
-  personId String
-  Person   Person[]
+
+  Person Person[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model FamilyMember {
   id         String  @id @default(cuid())
-  relation   String  @unique
+  relation   String
   name       String
   age        Int
   occupation String
   Person     Person? @relation(fields: [personId], references: [id])
   personId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-// cheacking and polcie officer related details
 model Checking {
   id                  String   @id @default(cuid())
+  checkingId          String   @unique
   checkingOfficerName String
   policeStation       String
+  captureCount        Int?
   captured            Person[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

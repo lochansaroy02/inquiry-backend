@@ -7,17 +7,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import cors from "cors";
 import express from 'express';
 import checkingRoutes from './routes/checkingRoutes.js';
-import memberRoutes from './routes/memberRoutes.js';
-import personRoutes from './routes/personRoutes.js';
 const app = express();
 app.use(express.json());
-// const PORT = process.env.PORT || 8080;
+app.use(cors());
+// const PORT = process.env.PORT || 8080 vm  ;
 // app.use("/api", districtRoutes);
 app.use("/checking", checkingRoutes);
-app.use("/person", personRoutes);
-app.use("/member", memberRoutes);
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({
         message: "hello"

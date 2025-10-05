@@ -1,10 +1,9 @@
 import express from "express";
-import { createChecking, getChecking } from "../controllers/checkingController.js";
+import { createChecking, } from "../controllers/checkingController.js";
 const router = express.Router();
 
 
 
-router.get("/fetch", getChecking)
 router.post("/create", createChecking)
 
 
